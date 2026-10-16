@@ -18,8 +18,9 @@ services:
     environment:
       OLLAMA_HOST: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:1b}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
     entrypoint: ["/bin/sh", "-c"]
-    command: ['exec ollama pull "$$OLLAMA_MODEL"']
+    command: ['ollama pull "$$OLLAMA_MODEL" && exec ollama pull "$$EMBEDDING_MODEL"']
     depends_on:
       ollama:
         condition: service_healthy
@@ -36,7 +37,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U app -d semantic_search"]
       interval: 5s
@@ -45,27 +45,15 @@ services:
     networks:
       - backend
 
-  embedding:
-    build: ./embedding
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health', timeout=5)"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 120s
-    networks:
-      - backend
-
-  reranker:
-    build: ./reranker
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8002/health', timeout=5)"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 120s
+  migrate:
+    build: .
+    command: ["alembic", "upgrade", "head"]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:${POSTGRES_PASSWORD}@postgres:5432/semantic_search
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
     networks:
       - backend
 
@@ -76,21 +64,25 @@ services:
       - "127.0.0.1:${API_PORT:-8000}:8000"
     environment:
       APP_NAME: ${APP_NAME:-Learning LLM API}
+      SHIPPING_FEE_VND: ${SHIPPING_FEE_VND:-30000}
+      STORE_COOKIE_SECURE: ${STORE_COOKIE_SECURE:-false}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_COOKIE_SECURE: ${ADMIN_COOKIE_SECURE:-false}
+      ADMIN_TENANT_ID: ${ADMIN_TENANT_ID:-demo}
       OLLAMA_BASE_URL: http://ollama:11434
       OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:1b}
       OLLAMA_TIMEOUT_SECONDS: ${OLLAMA_TIMEOUT_SECONDS:-180}
       DATABASE_URL: postgresql+asyncpg://app:${POSTGRES_PASSWORD}@postgres:5432/semantic_search
-      EMBEDDING_URL: http://embedding:8001
-      RERANKER_URL: http://reranker:8002
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
+      EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-120}
     depends_on:
       ollama-init:
         condition: service_completed_successfully
       postgres:
         condition: service_healthy
-      embedding:
-        condition: service_healthy
-      reranker:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
       interval: 30s
@@ -99,9 +91,31 @@ services:
     networks:
       - backend
 
+  worker:
+    build: .
+    command: ["python", "-m", "app.workers.main"]
+    stop_grace_period: 150s
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:${POSTGRES_PASSWORD}@postgres:5432/semantic_search
+      OLLAMA_BASE_URL: http://ollama:11434
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
+      EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-120}
+      EMBEDDING_BATCH_SIZE: ${EMBEDDING_BATCH_SIZE:-8}
+      EMBEDDING_JOB_POLL_SECONDS: ${EMBEDDING_JOB_POLL_SECONDS:-5}
+      EMBEDDING_JOB_LEASE_SECONDS: ${EMBEDDING_JOB_LEASE_SECONDS:-600}
+      EMBEDDING_JOB_RETRY_SECONDS: ${EMBEDDING_JOB_RETRY_SECONDS:-5}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      ollama-init:
+        condition: service_completed_successfully
+    networks:
+      - backend
+
 volumes:
   ollama_data:
-  postgres_data:    # fix: thêm volume này
+  postgres_data:
 
 networks:
   backend:

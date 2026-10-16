@@ -29,7 +29,7 @@ class SearchResult(BaseModel):
     id: UUID
     document_id: UUID
     content: str
-    score: float = Field(description="Cosine similarity [0, 1], cao hơn = liên quan hơn")
+    score: float = Field(description="Normalized score = 1 - cosine_distance / 2, trong [0, 1]")
     tenant_id: str
     language: str
     status: str

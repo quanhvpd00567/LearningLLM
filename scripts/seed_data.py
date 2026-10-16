@@ -10,8 +10,11 @@ import json
 import httpx
 import asyncpg
 
-EMBEDDING_URL = "http://embedding:8001"
-DATABASE_URL = "postgresql://app:12345678@postgres:5432/semantic_search"
+from app.core.config import get_settings
+from app.services.embedding import EmbeddingService
+
+settings = get_settings()
+DATABASE_URL = settings.database_url.replace("postgresql+asyncpg://", "postgresql://")
 
 # ─── 5 documents thực tế ───────────────────────────────────────────────────
 
@@ -73,7 +76,7 @@ Qwen3 là thế hệ thứ ba của dòng mô hình ngôn ngữ lớn Qwen do Al
 Dòng Qwen3 bao gồm nhiều kích thước từ 0.6B đến 235B tham số, phù hợp với các use case khác nhau từ edge device đến server.
 
 Qwen3-Embedding là mô hình chuyên biệt cho việc tạo vector embedding từ văn bản, hỗ trợ 100+ ngôn ngữ bao gồm tiếng Việt.
-Mô hình tạo ra vector 2048 chiều, cao hơn OpenAI text-embedding-ada-002 (1536 chiều), cho phép biểu diễn ngữ nghĩa phong phú hơn.
+Bản 0.6B tạo ra vector tối đa 1024 chiều, cao hơn OpenAI text-embedding-ada-002 (1536 chiều), cho phép biểu diễn ngữ nghĩa phong phú hơn.
 Qwen3-Embedding đạt điểm cao trên benchmark MTEB (Massive Text Embedding Benchmark) cho nhiều ngôn ngữ châu Á.
 
 Qwen3-Reranker là cross-encoder model được fine-tune để đánh giá mức độ liên quan giữa query và document.
@@ -149,10 +152,12 @@ def chunk_text(text: str, chunk_size: int = 400, overlap: int = 80) -> list[str]
     return chunks
 
 async def embed_batch(texts: list[str]) -> list[list[float]]:
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(f"{EMBEDDING_URL}/embed", json={"texts": texts})
-        resp.raise_for_status()
-        return resp.json()["embeddings"]
+    async with httpx.AsyncClient(
+        base_url=settings.ollama_base_url, timeout=settings.embedding_timeout_seconds,
+    ) as client:
+        return await EmbeddingService(
+            client, settings.embedding_model, settings.embedding_dimensions,
+        ).embed_documents(texts)
 
 async def seed():
     conn = await asyncpg.connect(DATABASE_URL)
@@ -180,6 +185,7 @@ async def seed():
                     str(emb),
                     doc["tenant_id"],
                     "vi",
+                    settings.embedding_model,
                     json.dumps({
                         "source": doc["title"],
                         "category": doc["category"],
@@ -191,8 +197,8 @@ async def seed():
 
             await conn.executemany("""
                 INSERT INTO document_chunks
-                    (id, document_id, content, embedding, tenant_id, language, metadata)
-                VALUES ($1, $2, $3, $4::vector, $5, $6, $7::jsonb)
+                    (id, document_id, content, embedding, tenant_id, language, embedding_model, metadata, pipeline_version)
+                VALUES ($1, $2, $3, $4::vector, $5, $6, $7, $8::jsonb, 1)
             """, rows)
 
             total += len(rows)

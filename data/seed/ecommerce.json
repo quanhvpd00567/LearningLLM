@@ -1,0 +1,2128 @@
+{
+  "categories": [
+    {
+      "slug": "walking",
+      "name": "Giày đi bộ"
+    },
+    {
+      "slug": "running",
+      "name": "Giày chạy bộ"
+    },
+    {
+      "slug": "trail",
+      "name": "Giày địa hình"
+    },
+    {
+      "slug": "training",
+      "name": "Giày tập luyện"
+    },
+    {
+      "slug": "casual",
+      "name": "Giày thường ngày"
+    }
+  ],
+  "products": [
+    {
+      "key": "walking-01",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 01",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 01, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-01-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-01-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-01-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-02",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 02",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 02, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-02-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-02-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-02-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-03",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 03",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 03, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-03-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-03-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-03-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-04",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 04",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 04, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-04-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-04-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-04-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-05",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 05",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 05, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-05-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-05-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-05-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-06",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 06",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 06, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-06-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-06-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-06-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-07",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 07",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 07, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-07-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-07-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-07-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-08",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 08",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 08, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-08-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-08-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-08-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-09",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 09",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 09, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-09-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-09-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "WALKING-09-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "walking-10",
+      "category": "walking",
+      "name": "Giày đi bộ Demo 10",
+      "description": "Đế êm, thân giày thoáng khí, phù hợp đi bộ trên đường bằng. Phiên bản 10, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi bộ hàng ngày",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "WALKING-10-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "WALKING-10-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "WALKING-10-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "key": "running-01",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 01",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 01, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-01-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-01-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-01-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-02",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 02",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 02, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-02-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-02-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-02-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-03",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 03",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 03, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-03-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-03-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-03-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-04",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 04",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 04, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-04-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-04-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-04-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-05",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 05",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 05, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-05-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-05-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-05-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-06",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 06",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 06, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-06-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-06-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-06-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-07",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 07",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 07, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-07-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-07-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-07-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-08",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 08",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 08, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-08-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-08-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-08-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-09",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 09",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 09, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-09-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-09-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "RUNNING-09-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "running-10",
+      "category": "running",
+      "name": "Giày chạy bộ Demo 10",
+      "description": "Trọng lượng nhẹ, đệm đàn hồi, phù hợp chạy bộ trên đường nhựa. Phiên bản 10, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Chạy bộ đường nhựa",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "RUNNING-10-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "RUNNING-10-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "RUNNING-10-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "key": "trail-01",
+      "category": "trail",
+      "name": "Giày địa hình Demo 01",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 01, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-01-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 515000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-01-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 515000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-01-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 515000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-02",
+      "category": "trail",
+      "name": "Giày địa hình Demo 02",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 02, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-02-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 580000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-02-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 580000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-02-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 580000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-03",
+      "category": "trail",
+      "name": "Giày địa hình Demo 03",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 03, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-03-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 645000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-03-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 645000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-03-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 645000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-04",
+      "category": "trail",
+      "name": "Giày địa hình Demo 04",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 04, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-04-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 710000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-04-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 710000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-04-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 710000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-05",
+      "category": "trail",
+      "name": "Giày địa hình Demo 05",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 05, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-05-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 775000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-05-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 775000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-05-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 775000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-06",
+      "category": "trail",
+      "name": "Giày địa hình Demo 06",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 06, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-06-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 840000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-06-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 840000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-06-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 840000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-07",
+      "category": "trail",
+      "name": "Giày địa hình Demo 07",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 07, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-07-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 905000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-07-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 905000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-07-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 905000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-08",
+      "category": "trail",
+      "name": "Giày địa hình Demo 08",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 08, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-08-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 970000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-08-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 970000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-08-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 970000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-09",
+      "category": "trail",
+      "name": "Giày địa hình Demo 09",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 09, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-09-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 1035000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-09-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 1035000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAIL-09-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 1035000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "trail-10",
+      "category": "trail",
+      "name": "Giày địa hình Demo 10",
+      "description": "Đế có gai bám, thân giày gia cố, phù hợp đường mòn khô. Phiên bản 10, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi đường mòn",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAIL-10-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 1100000,
+          "stock": 0
+        },
+        {
+          "sku": "TRAIL-10-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 1100000,
+          "stock": 0
+        },
+        {
+          "sku": "TRAIL-10-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 1100000,
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "key": "training-01",
+      "category": "training",
+      "name": "Giày tập luyện Demo 01",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 01, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-01-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-01-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-01-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-02",
+      "category": "training",
+      "name": "Giày tập luyện Demo 02",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 02, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-02-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-02-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-02-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-03",
+      "category": "training",
+      "name": "Giày tập luyện Demo 03",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 03, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-03-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-03-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-03-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-04",
+      "category": "training",
+      "name": "Giày tập luyện Demo 04",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 04, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-04-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-04-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-04-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-05",
+      "category": "training",
+      "name": "Giày tập luyện Demo 05",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 05, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-05-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-05-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-05-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-06",
+      "category": "training",
+      "name": "Giày tập luyện Demo 06",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 06, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-06-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-06-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-06-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-07",
+      "category": "training",
+      "name": "Giày tập luyện Demo 07",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 07, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-07-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-07-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-07-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-08",
+      "category": "training",
+      "name": "Giày tập luyện Demo 08",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 08, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-08-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-08-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-08-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-09",
+      "category": "training",
+      "name": "Giày tập luyện Demo 09",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 09, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-09-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-09-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "TRAINING-09-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "training-10",
+      "category": "training",
+      "name": "Giày tập luyện Demo 10",
+      "description": "Đế tương đối phẳng, hỗ trợ ổn định khi tập luyện trong phòng gym. Phiên bản 10, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Tập trong phòng gym",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "TRAINING-10-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "TRAINING-10-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "TRAINING-10-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        }
+      ]
+    },
+    {
+      "key": "casual-01",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 01",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 01, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-01-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-01-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-01-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 415000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-02",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 02",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 02, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-02-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-02-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-02-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 480000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-03",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 03",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 03, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-03-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-03-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-03-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 545000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-04",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 04",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 04, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-04-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-04-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-04-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 610000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-05",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 05",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 05, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-05-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-05-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-05-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 675000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-06",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 06",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 06, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-06-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-06-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-06-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 740000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-07",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 07",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 07, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-07-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-07-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-07-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 805000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-08",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 08",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 08, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-08-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-08-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-08-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 870000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-09",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 09",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 09, độ đệm mềm.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "mềm",
+        "material": "vải lưới",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-09-40",
+          "options": {
+            "size": 40,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-09-41",
+          "options": {
+            "size": 41,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        },
+        {
+          "sku": "CASUAL-09-42",
+          "options": {
+            "size": 42,
+            "color": "đen"
+          },
+          "price": 935000,
+          "stock": 10
+        }
+      ]
+    },
+    {
+      "key": "casual-10",
+      "category": "casual",
+      "name": "Giày thường ngày Demo 10",
+      "description": "Thiết kế đơn giản, dễ phối đồ, phù hợp đi học và đi làm. Phiên bản 10, độ đệm vừa.",
+      "attributes": {
+        "purpose": "Đi học và đi làm",
+        "cushioning": "vừa",
+        "material": "vải dệt",
+        "waterproof": false
+      },
+      "variants": [
+        {
+          "sku": "CASUAL-10-40",
+          "options": {
+            "size": 40,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "CASUAL-10-41",
+          "options": {
+            "size": 41,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        },
+        {
+          "sku": "CASUAL-10-42",
+          "options": {
+            "size": 42,
+            "color": "xám"
+          },
+          "price": 1000000,
+          "stock": 0
+        }
+      ]
+    }
+  ],
+  "knowledge": [
+    {
+      "key": "about",
+      "title": "Cửa hàng demo",
+      "content": "Đây là dữ liệu giả lập phục vụ học và kiểm thử chatbot ecommerce. Sản phẩm và chính sách không thuộc cửa hàng thực."
+    },
+    {
+      "key": "shipping",
+      "title": "Giao hàng",
+      "content": "Trong kịch bản demo, thời gian giao hàng dự kiến là 2–5 ngày làm việc. Thời gian thực tế của từng đơn cần tra cứu trạng thái đơn."
+    },
+    {
+      "key": "shipping-fee",
+      "title": "Phí vận chuyển",
+      "content": "Phí vận chuyển demo là 30000 đồng mỗi đơn. Tổng phí được xác nhận tại checkout."
+    },
+    {
+      "key": "returns",
+      "title": "Đổi trả",
+      "content": "Chính sách giả lập: được đề nghị đổi trả trong 7 ngày từ khi nhận hàng nếu sản phẩm chưa sử dụng, còn hộp và tem. Liên hệ hỗ trợ để kiểm tra điều kiện cụ thể."
+    },
+    {
+      "key": "size",
+      "title": "Chọn size",
+      "content": "Đo chiều dài bàn chân và đối chiếu bảng kích thước của sản phẩm. Nếu thiếu thông tin kích thước, chatbot cần hỏi lại, không tự khẳng định size phù hợp."
+    },
+    {
+      "key": "care",
+      "title": "Vệ sinh giày",
+      "content": "Lau bằng khăn mềm và dung dịch phù hợp chất liệu, phơi nơi thoáng mát. Tránh nhiệt cao. Tham khảo hướng dẫn riêng nếu sản phẩm có yêu cầu khác."
+    },
+    {
+      "key": "payment",
+      "title": "Thanh toán",
+      "content": "Demo chỉ hỗ trợ thanh toán khi nhận hàng COD. Chưa hỗ trợ thanh toán trực tuyến."
+    },
+    {
+      "key": "cancel",
+      "title": "Hủy đơn",
+      "content": "Trong demo, khách có thể yêu cầu hỗ trợ hủy khi đơn chưa chuyển sang giao hàng. Backend phải kiểm tra trạng thái hiện tại trước khi xử lý."
+    },
+    {
+      "key": "stock",
+      "title": "Giá và tồn kho",
+      "content": "Giá và số lượng tồn thay đổi theo từng biến thể. Cần tra cứu dữ liệu hiện tại; nội dung tài liệu không thay thế kết quả kiểm tra tồn kho."
+    },
+    {
+      "key": "support",
+      "title": "Hỗ trợ khách hàng",
+      "content": "Khi không có đủ thông tin để giải quyết, chatbot đề nghị khách liên hệ bộ phận hỗ trợ. Demo chưa cung cấp số điện thoại hay email hỗ trợ thực."
+    }
+  ]
+}
