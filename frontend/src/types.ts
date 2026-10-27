@@ -5,6 +5,8 @@ export type View =
   | "categories"
   | "knowledge"
   | "jobs"
+  | "ai-health"
+  | "monitoring"
   | "settings";
 export type Variant = {
   id?: string;

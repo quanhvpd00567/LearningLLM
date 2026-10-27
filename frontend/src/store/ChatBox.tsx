@@ -7,6 +7,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
+import { signIn, useCustomer } from "./CustomerSession";
 import { ChatResponse, Product, image, money, shopApi } from "./api";
 type Turn = {
   role: "user" | "assistant";
@@ -14,6 +15,7 @@ type Turn = {
   products?: Product[];
   sources?: ChatResponse["sources"];
   degraded?: boolean;
+  private?: boolean;
 };
 export function ChatBox({
   open,
@@ -26,6 +28,7 @@ export function ChatBox({
   onProduct: (p: Product) => void;
   onPolicy: (id: string) => void;
 }) {
+  const { user } = useCustomer();
   const [messages, setMessages] = useState<Turn[]>([]),
     [input, setInput] = useState(""),
     [busy, setBusy] = useState(false),
@@ -39,6 +42,7 @@ export function ChatBox({
     if (open) end.current?.scrollIntoView({ block: "nearest" });
   }, [messages, busy, open]);
   async function send(text: string, retry = false) {
+    if (!user) { signIn("chat"); return; }
     if (busy || !text.trim()) return;
     setError("");
     const history = retry
@@ -50,6 +54,7 @@ export function ChatBox({
     try {
       const response = await shopApi<ChatResponse>("/chat", "POST", {
         messages: history
+          .filter((m) => !m.private)
           .slice(-9)
           .map((m) => ({ role: m.role, content: m.content.slice(0, 1500) })),
       });
@@ -61,6 +66,7 @@ export function ChatBox({
           products: response.products,
           sources: response.sources,
           degraded: response.degraded,
+          private: response.private,
         },
       ]);
     } catch (e) {
@@ -100,9 +106,11 @@ export function ChatBox({
                 chính sách của cửa hàng.
               </p>
             </div>
-            {!messages.length && (
+            {!user && <div className="shop-chat-suggestions"><p>Đăng nhập để trò chuyện và xem thông tin đơn hàng của bạn.</p><button onClick={() => signIn("chat")}>Đăng nhập / Đăng ký<ArrowUpRight size={14} /></button></div>}
+            {user && !messages.length && (
               <div className="shop-chat-suggestions">
                 {[
+                  "Đơn hàng của tôi",
                   "Tìm giày đi bộ đế êm",
                   "Tư vấn giày chạy bộ",
                   "Chính sách đổi trả thế nào?",
@@ -192,9 +200,9 @@ export function ChatBox({
               placeholder="Bạn đang tìm đôi giày như thế nào?"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              disabled={busy}
+              disabled={busy || !user}
             />
-            <button aria-label="Gửi tin nhắn" disabled={busy || !input.trim()}>
+            <button aria-label="Gửi tin nhắn" disabled={busy || !user || !input.trim()}>
               <ArrowUp size={19} />
             </button>
           </form>

@@ -2,6 +2,7 @@
 from datetime import timedelta
 from hashlib import sha256
 import secrets
+import logging
 
 from fastapi import Depends, HTTPException, Request, Response
 from sqlalchemy import delete, func, select
@@ -27,6 +28,7 @@ async def admin_db(request: Request):
     except IntegrityError as exc:
         raise HTTPException(409, "Dữ liệu bị trùng hoặc đang được sử dụng. Hãy tải lại và kiểm tra.") from exc
     except SQLAlchemyError as exc:
+        logging.getLogger("app.database").exception("admin_database_error")
         raise HTTPException(503, "Không kết nối được dữ liệu quản trị.") from exc
 
 

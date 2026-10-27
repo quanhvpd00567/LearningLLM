@@ -18,6 +18,7 @@ import {
   Sparkles,
   Truck,
   X,
+  UserRound,
 } from "lucide-react";
 import { useDebounce } from "../lib/hooks";
 import {
@@ -37,6 +38,7 @@ import { ShopDialog } from "./ShopDialog";
 import { ProductDetail } from "./ProductDetail";
 import { CartPanel } from "./CartPanel";
 import { ChatBox } from "./ChatBox";
+import { signIn, useCustomer } from "./CustomerSession";
 const emptyCart: Cart = {
   items: [],
   subtotal: "0",
@@ -97,6 +99,7 @@ function PlusIcon() {
   return <span>＋</span>;
 }
 export function Storefront() {
+  const { user, error: sessionError, refresh: refreshSession } = useCustomer();
   const [config, setConfig] = useState<ShopConfig | null>(null),
     [categories, setCategories] = useState<Category[]>([]),
     [policies, setPolicies] = useState<Policy[]>([]),
@@ -113,7 +116,7 @@ export function Storefront() {
     [revision, setRevision] = useState(0),
     [detail, setDetail] = useState<Product | null>(null),
     [cart, setCart] = useState<Cart>(emptyCart),
-    [cartOpen, setCartOpen] = useState(false),
+    [cartOpen, setCartOpen] = useState(() => !!user && new URLSearchParams(location.search).get("cart") === "1"),
     [receipt, setReceipt] = useState<Order | null>(null),
     [orders, setOrders] = useState<Order[]>([]),
     [ordersOpen, setOrdersOpen] = useState(false),
@@ -121,7 +124,7 @@ export function Storefront() {
     [ordersError, setOrdersError] = useState(""),
     [policy, setPolicy] = useState<Policy | null>(null),
     [policyListOpen, setPolicyListOpen] = useState(false),
-    [chatOpen, setChatOpen] = useState(false),
+    [chatOpen, setChatOpen] = useState(() => new URLSearchParams(location.search).get("chat") === "1"),
     [toast, setToast] = useState(""),
     [mobile, setMobile] = useState(false),
     [idempotencyKey, setIdempotencyKey] = useState(() => crypto.randomUUID());
@@ -196,6 +199,7 @@ export function Storefront() {
     setIdempotencyKey(crypto.randomUUID());
   }
   async function addCart(id: string, quantity: number) {
+    if (!user) { signIn("cart"); return; }
     await updateCart(
       id,
       (cart.items.find((i) => i.variant_id === id)?.quantity || 0) + quantity,
@@ -203,6 +207,7 @@ export function Storefront() {
     setToast("Đã thêm vào giỏ hàng. Sẵn sàng cho bước chân mới!");
   }
   async function showCart() {
+    if (!user) { signIn("cart"); return; }
     try {
       setCart(await shopApi<Cart>("/cart"));
       setCartOpen(true);
@@ -211,6 +216,7 @@ export function Storefront() {
     }
   }
   async function showOrders() {
+    if (!user) { signIn(); return; }
     setOrdersOpen(true);
     setOrdersLoading(true);
     setOrdersError("");
@@ -292,6 +298,7 @@ export function Storefront() {
           >
             <Search size={20} />
           </button>
+          <a className="shop-icon-button customer-account-link" href={user ? "/account" : "/login"} aria-label={user ? "Tài khoản của bạn" : "Đăng nhập / Đăng ký"} title={user ? user.name : "Đăng nhập / Đăng ký"}><UserRound size={20} /><span className="customer-header-label">{user ? "Tài khoản" : "Đăng nhập"}</span></a>
           <button
             className="shop-icon-button"
             aria-label="Đơn hàng của bạn"
@@ -317,6 +324,7 @@ export function Storefront() {
         </div>
       </header>
       <main>
+        {sessionError && <div className="shop-error" role="alert">{sessionError}<button onClick={refreshSession}>Thử lại</button></div>}
         <section className="shop-hero">
           <div className="shop-hero-copy">
             <span className="shop-eyebrow">
@@ -720,7 +728,7 @@ export function Storefront() {
       )}
       {ordersOpen && (
         <ShopDialog
-          title="Đơn hàng trong phiên mua sắm này"
+          title="Đơn hàng trong tài khoản của bạn"
           onClose={() => setOrdersOpen(false)}
         >
           <div className="shop-orders">
@@ -756,7 +764,7 @@ export function Storefront() {
                 <ReceiptText size={35} />
                 <h3>Bạn chưa có đơn hàng</h3>
                 <p>
-                  Đơn hàng được lưu trong phiên mua sắm trên trình duyệt này.
+                  Đơn hàng mới sẽ được lưu vào tài khoản của bạn.
                 </p>
               </div>
             )}

@@ -1,6 +1,6 @@
-# Ecommerce chatbot — FastAPI, Ollama và pgvector
+# Ecommerce chatbot — FastAPI, Gemini và pgvector
 
-Demo đang phát triển từ API chat FastAPI + Ollama. Nền tảng hiện có:
+Demo dùng Gemini API để chat và Ollama Docker để embedding. Nền tảng hiện có:
 
 - Chat qua `POST /api/v1/chat`, trả JSON sau khi sinh xong.
 - Semantic search qua `POST /api/v1/search`.
@@ -10,8 +10,7 @@ Demo đang phát triển từ API chat FastAPI + Ollama. Nền tảng hiện có
 
 Hiện đã có catalog, knowledge, jobs, embedding worker và admin site với đăng nhập,
 quản lý sản phẩm/biến thể, tài liệu, đồng bộ và settings. Giỏ hàng/đơn hàng và
-chatbot RAG/streaming được triển khai sau phần admin. Model chat hiện mặc định `llama3.2:1b`, chưa phải
-lựa chọn cuối cùng cho chatbot ecommerce.
+chatbot RAG/streaming được triển khai sau phần admin. Model chat cấu hình qua `GEMINI_MODEL` (mặc định `gemini-flash-latest`).
 
 ## Cấu trúc
 
@@ -27,7 +26,7 @@ app/
 ├── chatbot/rag/chunking.py   # Chia đoạn và phiên bản pipeline
 ├── workers/                 # Queue, heartbeat, embedding worker, CLI
 └── services/
-    ├── ollama.py            # Chat client
+    ├── gemini.py            # Gemini client + guardrails
     ├── embedding.py         # Embedding client + validation + query instruction
     ├── search.py            # ORM query, pgvector distance, metadata filters
     └── sources.py           # Transactional source writes + embedding jobs
@@ -41,12 +40,12 @@ tests/                       # API, embedding và PostgreSQL integration tests
 ```
 
 Hai thư mục `embedding/` và `reranker/` cũ được giữ để tham khảo, không còn là
-service trong Compose. Backend gọi Ollama trực tiếp cho cả chat và embedding.
+service trong Compose. Backend gọi Gemini cho chat, Ollama cho embedding.
 
 ## Chạy bằng Docker Compose
 
 Lần đầu, copy `.env.example` thành `.env`. Nếu đã có `.env`, bổ sung các biến mới
-và giữ cấu hình hiện tại. Đặt `POSTGRES_PASSWORD` trước khi chạy Compose.
+và giữ cấu hình hiện tại. Đặt `POSTGRES_PASSWORD`, `ADMIN_PASSWORD` và `GEMINI_API_KEY` trước khi chạy Compose.
 
 ```bash
 cp .env.example .env
@@ -54,7 +53,7 @@ docker compose up --build -d
 docker compose logs -f migrate ollama-init api
 ```
 
-Compose chạy PostgreSQL và Ollama, job tải hai model, job migration, rồi API.
+Compose chạy PostgreSQL và Ollama, job chỉ tải model embedding, job migration, rồi API.
 Lần đầu cần Internet để tải image/model. Model và database được lưu bằng named
 volumes. API được bind vào localhost; PostgreSQL/Ollama chỉ truy cập nội bộ.
 
@@ -75,7 +74,6 @@ cấu hình cổng localhost riêng cho development.
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-ollama pull llama3.2:1b
 ollama pull qwen3-embedding:0.6b
 alembic upgrade head
 uvicorn app.main:app --reload
@@ -158,7 +156,9 @@ Search cần database sẵn sàng.
 | HTTP | Ý nghĩa |
 | --- | --- |
 | 422 | Request không hợp lệ |
-| 502 | Ollama trả lỗi hoặc dữ liệu sai định dạng |
+| 400 | Gemini từ chối vì bộ lọc an toàn |
+| 429 | Gemini hết hạn mức / giới hạn tần suất |
+| 502 | Upstream trả lỗi hoặc dữ liệu sai định dạng |
 | 503 | Không kết nối được upstream/database |
 | 504 | Upstream xử lý quá thời gian chờ |
 
@@ -325,3 +325,135 @@ npm --prefix frontend run build
 Frontend chia thành `pages/`, `components/`, `lib/`, `types.ts` và `App.tsx`.
 Dockerfile build frontend trong Node stage rồi copy dist vào `app/static/admin`;
 không cần chạy Node trong container backend. Endpoint `/` chuyển tới `/admin/`.
+
+
+### Monitoring: Grafana, metrics và log
+
+Chạy `docker compose up -d --build` để khởi động cả hệ thống monitoring.
+Mở **Hệ thống → Monitoring** trong `/admin/` để xem CPU, working-set RAM,
+network theo container, request rate, HTTP 5xx, p95 latency và 60 dòng log
+mới nhất của API/worker/Postgres/Ollama/migration trong 15 phút. Trang tự cập nhật
+mỗi 15 giây. Metrics mạng và latency cần vài lần scrape trước khi có dữ liệu.
+Menu chỉ dành cho admin; khi collector/backend lỗi, trang hiển thị cảnh báo.
+
+Grafana: http://127.0.0.1:3000, dashboard **LearningLLM / System Monitoring**
+được provision sẵn cùng Prometheus và Loki. Tài khoản mặc định `admin`;
+mật khẩu lấy từ `GRAFANA_ADMIN_PASSWORD`, hoặc `ADMIN_PASSWORD` nếu chưa đặt.
+Grafana lưu tài khoản trong volume: thay `.env` không đổi mật khẩu tài khoản
+Grafana đã tạo; đổi trong Grafana hoặc dùng CLI reset-admin-password.
+Đặt `GRAFANA_PUBLIC_URL` theo địa chỉ trình duyệt truy cập và `GRAFANA_PORT`
+nếu đổi port, rồi recreate API/Grafana. Grafana dùng đăng nhập riêng.
+
+Prometheus lưu metrics 15 ngày; Loki lưu log 7 ngày; dữ liệu nằm trong named
+volumes. Docker json-file log xoay vòng 10 MiB × 3 file mỗi container.
+Alloy tự khám phá container của Compose project và thu stdout/stderr, bao gồm
+log service hạ tầng. `COMPOSE_PROJECT_NAME` cần khớp project (mặc định
+`learningllm`); nếu dùng `docker compose -p NAME`, đặt cùng giá trị trong `.env`.
+
+CPU 100% = một vCPU; RAM trừ inactive file cache. Giới hạn RAM là giá trị Docker
+báo cáo (thường là bộ nhớ VM khi không đặt container limit). Trên macOS,
+metrics phản ánh container trong Docker VM, không phải tổng CPU/RAM của macOS.
+Docker Stats API được dùng để chạy trên OrbStack/Docker Desktop mà không cần
+mount cgroup hoặc chạy cAdvisor privileged. Container đã dừng không có stats
+hiện tại; lịch sử vẫn xem được trong Grafana.
+
+API/worker ghi JSON ra stdout: timestamp UTC, level, logger, message;
+request API có request ID, route template, status, duration_ms. Response có
+`X-Request-ID` để tra log. Tất cả thao tác HTTP, kể cả mutation admin, được ghi;
+login/logout có sự kiện riêng. Không ghi request body, query string, cookie,
+Authorization hoặc mật khẩu; stack lỗi ghi loại lỗi và vị trí. Log thư viện/hạ
+tầng vẫn theo định dạng riêng. `/metrics` xuất HTTP/process metrics, được
+Prometheus scrape qua mạng nội bộ. Health/metrics thành công không ghi access
+log để giảm nhiễu. `LOG_LEVEL` mặc định INFO.
+
+Chỉ Grafana publish thêm port localhost 3000; Prometheus/Loki/exporter không
+publish port host. Alloy và docker-metrics mount Docker socket để đọc log và
+stats: socket Docker vẫn có quyền điều khiển daemon dù mount `:ro`, vì vậy chỉ
+chạy image/config đáng tin cậy và không publish exporter/Alloy ra Internet.
+Pipeline log dựa trên [hướng dẫn Alloy chính thức](https://grafana.com/docs/alloy/latest/monitor/monitor-docker-containers/).
+
+
+## Gemini và guardrails
+
+Thêm vào `.env` hiện có (không ghi đè các cấu hình khác):
+
+```dotenv
+GEMINI_API_KEY=your-api-key
+GEMINI_MODEL=gemini-flash-latest
+GEMINI_TIMEOUT_SECONDS=60
+GEMINI_MAX_OUTPUT_TOKENS=2048
+```
+
+Tạo key tại https://aistudio.google.com/apikey, rồi chạy `docker compose up -d --build`.
+Không cần pull model chat Ollama. Giữ nguyên volume Ollama/Postgres và model
+`qwen3-embedding:0.6b`; chuyển chat không yêu cầu reindex. Các biến OLLAMA_MODEL
+và OLLAMA_TIMEOUT_SECONDS cũ không còn được dùng. Model alias có thể thay đổi;
+đặt GEMINI_MODEL thành model ID cụ thể nếu cần cố định phiên bản.
+
+Guardrails áp dụng tại GeminiService cho cả chat thường và RAG cửa hàng:
+- Tối đa 48000 ký tự mỗi hội thoại; bắt buộc kết thúc bằng user message.
+- API chat công khai từ chối system message; server giữ quyền đặt chỉ dẫn.
+- System instruction yêu cầu bảo vệ cấu hình, không làm theo chỉ dẫn trong tài liệu,
+  và chỉ trả lời câu hỏi cửa hàng dựa trên dữ liệu được cung cấp.
+- Gemini safetySettings chặn mức MEDIUM trở lên cho hate speech, harassment,
+  sexually explicit và dangerous content.
+- Không trả nội dung bị safety block, bị cắt giữa chừng, rỗng, quá 16000 ký tự
+  hoặc chứa API key đang dùng. Không trả chi tiết lỗi upstream cho client.
+- Trợ lý cửa hàng chỉ đọc dữ liệu; lỗi Gemini trả thông báo dự phòng với sản phẩm
+  và nguồn đã tìm được. Giá/tồn kho trên product card vẫn lấy từ database.
+
+Đây là guardrail nhiều lớp, không bảo đảm loại bỏ hoàn toàn prompt injection
+hay thông tin bịa trong văn bản. Nội dung hội thoại và các đoạn RAG được gửi
+đến Google; embedding và dữ liệu vector vẫn xử lý trong Docker hiện tại.
+API dùng [generateContent và safetySettings chính thức](https://ai.google.dev/api/generate-content).
+
+
+### Admin: Health check AI
+
+Mở `/admin/?view=ai-health` trong nhóm **Hệ thống → Health check AI**.
+Trang hiển thị model thực tế của API, trạng thái cấu hình key và cảnh báo worker
+đang tạm dừng. Bấm **Kiểm tra model** riêng cho Gemini hoặc Ollama embedding
+để đo thời gian phản hồi và xem lỗi key/quyền/model/quota. Probe Gemini đi qua
+cùng client và guardrail của chatbot; probe embedding kiểm tra vector hợp lệ.
+Kết quả embedding không xác nhận toàn bộ hàng đợi đã đồng bộ thành công.
+
+`GET /api/v1/admin/ai-health` chỉ đọc cấu hình; không gọi model.
+`POST /api/v1/admin/ai-health/{gemini|embedding}` gọi một yêu cầu mẫu, có thể
+sử dụng quota API. Không tự động polling hoặc lưu kết quả. Các endpoint yêu cầu
+phiên admin; không trả API key hoặc payload lỗi thô của nhà cung cấp.
+
+
+## Tài khoản khách hàng
+
+Các trang `/login`, `/register` và `/account` dành riêng cho khách hàng, tách
+khỏi đăng nhập admin. Đăng ký bằng tên, email và mật khẩu từ 10–128 ký tự;
+email được chuẩn hóa chữ thường. Mật khẩu lưu bằng scrypt với salt riêng.
+Cookie phiên HttpOnly, SameSite Strict, tồn tại 7 ngày; logout thu hồi token
+trong database. Bật STORE_COOKIE_SECURE=true khi triển khai HTTPS.
+
+Migration `0006_customers` thêm customers, customer_sessions và giới hạn thử
+đăng nhập/đăng ký (30 lần / 15 phút / IP / tenant). Hệ thống dùng địa chỉ client
+của ASGI, không tự đọc X-Forwarded-For. Khi có reverse proxy, chỉ cấu hình tin
+cậy proxy thực tế. Chưa có xác minh email, quên mật khẩu hoặc đổi mật khẩu.
+
+- Catalog và chính sách vẫn công khai. Chat cửa hàng, đặt đơn và xem đơn yêu
+  cầu tài khoản. API chat kỹ thuật `/api/v1/chat` không có quyền đọc dữ liệu user.
+- Mỗi tài khoản có chủ sở hữu giỏ hàng/đơn hàng ổn định ở server. Mọi truy vấn
+  đơn hàng lọc theo chủ sở hữu và tenant lấy từ phiên đăng nhập, không nhận
+  user_id/email do client gửi để quyết định quyền truy cập.
+- Đăng nhập trên thiết bị khác vẫn dùng cùng giỏ hàng và lịch sử đơn. Giỏ khách
+  và đơn của các phiên khách cũ không tự gộp vào tài khoản theo email/điện thoại.
+- Hỏi chatbot “Đơn hàng của tôi” hoặc mã CL-… sẽ lấy tối đa 10 đơn gần nhất
+  trong tài khoản bằng SQL đã lọc quyền và trả trạng thái/tổng tiền/sản phẩm.
+  Nhánh này không gọi Gemini hay embedding; không đưa đơn hàng vào RAG chung.
+  Giao diện không gửi lại câu trả lời riêng tư này trong lịch sử tới model.
+- Câu hỏi sản phẩm/chính sách tiếp tục dùng RAG + Gemini và guardrail hiện có.
+  Chat hiện giữ lịch sử trong bộ nhớ trang, chưa lưu hội thoại vào database.
+- Trang tài khoản hiển thị tối đa 30 đơn gần nhất. Đăng xuất/chuyển tài khoản
+  xóa trạng thái riêng tư trên giao diện; backend kiểm tra phiên ở từng request.
+
+API: POST `/api/v1/store/auth/register`, `/auth/login`, `/auth/logout`;
+GET `/api/v1/store/auth/me` (các đường dẫn auth đều dưới `/api/v1/store`).
+Chạy `alembic upgrade head` trước khi khởi động backend mới.
+
+Sau khi đăng ký hoặc đăng nhập thành công, khách hàng được chuyển về trang chủ `/`.

@@ -8,6 +8,7 @@ from uuid import uuid4
 
 import httpx
 
+from app.core.observability import configure_logging
 from app.core.config import get_settings
 from app.db.session import create_database
 from app.services.embedding import EmbeddingService
@@ -56,5 +57,5 @@ if __name__ == "__main__":
     mode.add_argument("--once", action="store_true", help="Attempt one ready job and exit")
     mode.add_argument("--drain", action="store_true", help="Run until no jobs are ready; delayed retries remain queued")
     args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+    configure_logging()
     asyncio.run(main(args.once, args.drain))

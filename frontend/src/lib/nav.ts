@@ -15,5 +15,7 @@ export const nav: { id: View; title: string; icon: typeof Package }[] = [
   { id: "categories", title: "Danh mục", icon: Layers3 },
   { id: "knowledge", title: "Kho kiến thức", icon: BookOpen },
   { id: "jobs", title: "Đồng bộ dữ liệu", icon: Activity },
+  { id: "ai-health", title: "Health check AI", icon: Activity },
+  { id: "monitoring", title: "Monitoring", icon: Activity },
   { id: "settings", title: "Cài đặt", icon: Settings2 },
 ];

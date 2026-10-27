@@ -32,3 +32,28 @@ class StoreChatInput(BaseModel):
         if self.messages[-1].role != "user" or sum(len(m.content) for m in self.messages) > 16000:
             raise ValueError("End with a user message; history must be <= 16000 characters")
         return self
+
+
+class CustomerLogin(BaseModel):
+    model_config = {"extra": "forbid"}
+    email: str = Field(min_length=3, max_length=254, pattern=r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
+    password: str = Field(min_length=1, max_length=128)
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_email(cls, data):
+        if isinstance(data, dict) and isinstance(data.get("email"), str):
+            data = {**data, "email": data["email"].strip().lower()}
+        return data
+
+
+class CustomerRegister(CustomerLogin):
+    name: str = Field(min_length=2, max_length=120)
+    password: str = Field(min_length=10, max_length=128)
+
+    @model_validator(mode="after")
+    def trimmed_name(self):
+        self.name = self.name.strip()
+        if len(self.name) < 2:
+            raise ValueError("Tên phải có ít nhất 2 ký tự")
+        return self

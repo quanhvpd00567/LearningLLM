@@ -1,5 +1,6 @@
 import React, { type FormEvent, useEffect, useRef, useState } from "react";
 import {
+  Activity,
   ArrowRight,
   CheckCircle2,
   ChevronRight,
@@ -24,6 +25,8 @@ import { CategoriesPage, CategoryEditor } from "./pages/Categories";
 import { KnowledgePage, KnowledgeEditor } from "./pages/Knowledge";
 import { JobsPage } from "./pages/Jobs";
 import { OrdersPage } from "./pages/Orders";
+import { MonitoringPage } from "./pages/Monitoring";
+import { AIHealthPage } from "./pages/AIHealth";
 import { SettingsPage } from "./pages/Settings";
 export function App() {
   const [username, setUsername] = useState<string | null | undefined>(
@@ -130,6 +133,8 @@ export function App() {
     return <Login onLogin={setUsername} initialError={bootError} />;
   const title = nav.find((n) => n.id === view)?.title;
   const subtitles: Record<View, string> = {
+    "ai-health": "Kiểm tra kết nối và khả năng phản hồi của model AI.",
+    monitoring: "Theo dõi tài nguyên, hiệu năng API và log hệ thống.",
     orders: "Theo dõi đơn thử nghiệm từ cửa hàng.",
     overview: "Một góc nhìn rõ ràng về cửa hàng của bạn.",
     products: "Quản lý catalog, biến thể và tồn kho tại một nơi.",
@@ -163,7 +168,7 @@ export function App() {
         <span className="nav-label">WORKSPACE</span>
         <nav>
           {nav
-            .filter((n) => n.id !== "settings")
+            .filter((n) => n.id !== "settings" && n.id !== "monitoring" && n.id !== "ai-health")
             .map((n) => (
               <button
                 className={view === n.id ? "active" : ""}
@@ -183,6 +188,8 @@ export function App() {
         </nav>
         <span className="nav-label system-label">HỆ THỐNG</span>
         <nav>
+          <button className={view === "ai-health" ? "active" : ""} onClick={() => navigate("ai-health")}><Activity size={19} />Health check AI</button>
+          <button className={view === "monitoring" ? "active" : ""} onClick={() => navigate("monitoring")}><Activity size={19} />Monitoring</button>
           <button
             className={view === "settings" ? "active" : ""}
             onClick={() => navigate("settings")}
@@ -271,7 +278,7 @@ export function App() {
           <div className="page-title">
             <div>
               <div className="breadcrumb">
-                COMMERCE LAB / {view === "settings" ? "SYSTEM" : "WORKSPACE"}
+                COMMERCE LAB / {(view === "settings" || view === "monitoring" || view === "ai-health") ? "SYSTEM" : "WORKSPACE"}
               </div>
               <h1>{title}</h1>
               <p>{subtitles[view]}</p>
@@ -333,6 +340,8 @@ export function App() {
               onCreate={() => setEditor({ type: "product", value: null })}
             />
           )}
+          {view === "ai-health" && <AIHealthPage revision={revision} />}
+          {view === "monitoring" && <MonitoringPage revision={revision} />}
           {view === "orders" && <OrdersPage revision={revision} />}
           {view === "categories" && (
             <CategoriesPage

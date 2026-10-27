@@ -196,3 +196,29 @@ class OrderItem(Base):
     options: Mapped[dict[str, Any]] = mapped_column(JSONB)
     unit_price: Mapped[Decimal] = mapped_column(Numeric(14, 0))
     quantity: Mapped[int] = mapped_column(Integer)
+
+
+class Customer(Base):
+    __tablename__ = "customers"
+    __table_args__ = (UniqueConstraint("tenant_id", "email", name="uq_customer_tenant_email"),)
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    tenant_id: Mapped[str] = mapped_column(Text)
+    email: Mapped[str] = mapped_column(String(254))
+    name: Mapped[str] = mapped_column(String(120))
+    password_hash: Mapped[str] = mapped_column(Text)
+    owner_hash: Mapped[str] = mapped_column(ForeignKey("shopper_sessions.token_hash"), unique=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class CustomerSession(Base):
+    __tablename__ = "customer_sessions"
+    token_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    customer_id: Mapped[UUID] = mapped_column(ForeignKey("customers.id", ondelete="CASCADE"), index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
+class CustomerAuthLimit(Base):
+    __tablename__ = "customer_auth_limits"
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    attempts: Mapped[int] = mapped_column(Integer)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)

@@ -1,6 +1,13 @@
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   ollama:
     image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
+    logging: *default-logging
     restart: unless-stopped
     volumes:
       - ollama_data:/root/.ollama
@@ -17,10 +24,9 @@ services:
     image: ${OLLAMA_IMAGE:-ollama/ollama:latest}
     environment:
       OLLAMA_HOST: http://ollama:11434
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:1b}
       EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
     entrypoint: ["/bin/sh", "-c"]
-    command: ['ollama pull "$$OLLAMA_MODEL" && exec ollama pull "$$EMBEDDING_MODEL"']
+    command: ['exec ollama pull "$$EMBEDDING_MODEL"']
     depends_on:
       ollama:
         condition: service_healthy
@@ -30,6 +36,7 @@ services:
 
   postgres:
     image: pgvector/pgvector:pg16
+    logging: *default-logging
     restart: unless-stopped
     environment:
       POSTGRES_DB: semantic_search
@@ -59,10 +66,15 @@ services:
 
   api:
     build: .
+    logging: *default-logging
     restart: unless-stopped
     ports:
       - "127.0.0.1:${API_PORT:-8000}:8000"
     environment:
+      PROMETHEUS_URL: http://prometheus:9090
+      LOKI_URL: http://loki:3100
+      GRAFANA_PUBLIC_URL: ${GRAFANA_PUBLIC_URL:-http://127.0.0.1:3000}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
       APP_NAME: ${APP_NAME:-Learning LLM API}
       SHIPPING_FEE_VND: ${SHIPPING_FEE_VND:-30000}
       STORE_COOKIE_SECURE: ${STORE_COOKIE_SECURE:-false}
@@ -71,8 +83,10 @@ services:
       ADMIN_COOKIE_SECURE: ${ADMIN_COOKIE_SECURE:-false}
       ADMIN_TENANT_ID: ${ADMIN_TENANT_ID:-demo}
       OLLAMA_BASE_URL: http://ollama:11434
-      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:1b}
-      OLLAMA_TIMEOUT_SECONDS: ${OLLAMA_TIMEOUT_SECONDS:-180}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-flash-latest}
+      GEMINI_TIMEOUT_SECONDS: ${GEMINI_TIMEOUT_SECONDS:-60}
+      GEMINI_MAX_OUTPUT_TOKENS: ${GEMINI_MAX_OUTPUT_TOKENS:-2048}
       DATABASE_URL: postgresql+asyncpg://app:${POSTGRES_PASSWORD}@postgres:5432/semantic_search
       EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
       EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-120}
@@ -95,12 +109,14 @@ services:
     build: .
     command: ["python", "-m", "app.workers.main"]
     stop_grace_period: 150s
+    logging: *default-logging
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql+asyncpg://app:${POSTGRES_PASSWORD}@postgres:5432/semantic_search
       OLLAMA_BASE_URL: http://ollama:11434
       EMBEDDING_MODEL: ${EMBEDDING_MODEL:-qwen3-embedding:0.6b}
       EMBEDDING_TIMEOUT_SECONDS: ${EMBEDDING_TIMEOUT_SECONDS:-120}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
       EMBEDDING_BATCH_SIZE: ${EMBEDDING_BATCH_SIZE:-8}
       EMBEDDING_JOB_POLL_SECONDS: ${EMBEDDING_JOB_POLL_SECONDS:-5}
       EMBEDDING_JOB_LEASE_SECONDS: ${EMBEDDING_JOB_LEASE_SECONDS:-600}
@@ -113,7 +129,73 @@ services:
     networks:
       - backend
 
+  docker-metrics:
+    build: ./monitoring/exporter
+    restart: unless-stopped
+    logging: *default-logging
+    environment:
+      COMPOSE_PROJECT: ${COMPOSE_PROJECT_NAME:-learningllm}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks: [backend]
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    restart: unless-stopped
+    logging: *default-logging
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=15d"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks: [backend]
+
+  loki:
+    image: grafana/loki:3.5.7
+    restart: unless-stopped
+    logging: *default-logging
+    command: ["-config.file=/etc/loki/config.yml"]
+    volumes:
+      - ./monitoring/loki.yml:/etc/loki/config.yml:ro
+      - loki_data:/loki
+    networks: [backend]
+
+  alloy:
+    image: grafana/alloy:v1.10.2
+    restart: unless-stopped
+    logging: *default-logging
+    command: ["run", "--storage.path=/var/lib/alloy", "/etc/alloy/config.alloy"]
+    environment:
+      COMPOSE_PROJECT: ${COMPOSE_PROJECT_NAME:-learningllm}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./monitoring/config.alloy:/etc/alloy/config.alloy:ro
+      - alloy_data:/var/lib/alloy
+    depends_on: [loki]
+    networks: [backend]
+
+  grafana:
+    image: grafana/grafana:12.2.0
+    restart: unless-stopped
+    logging: *default-logging
+    ports:
+      - "127.0.0.1:${GRAFANA_PORT:-3000}:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-${ADMIN_PASSWORD:?Set ADMIN_PASSWORD or GRAFANA_ADMIN_PASSWORD}}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on: [prometheus, loki]
+    networks: [backend]
+
 volumes:
+  grafana_data:
+  prometheus_data:
+  loki_data:
+  alloy_data:
   ollama_data:
   postgres_data:
 

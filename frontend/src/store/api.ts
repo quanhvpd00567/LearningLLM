@@ -73,6 +73,7 @@ export type ChatResponse = {
   products: Product[];
   sources: { id: string; type: string; title: string }[];
   degraded: boolean;
+  private?: boolean;
 };
 export const money = (n: string | number) =>
   new Intl.NumberFormat("vi-VN", {
@@ -109,13 +110,16 @@ export async function shopApi<T = any>(
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const data = await response.json().catch(() => ({}));
-  if (!response.ok)
-    throw new Error(
+  if (!response.ok) {
+    if (response.status === 401 && !path.startsWith("/auth/")) window.dispatchEvent(new Event("customer-session-expired"));
+    const error = new Error(
       typeof data.detail === "string"
         ? data.detail
         : Array.isArray(data.detail)
           ? "Thông tin chưa hợp lệ. Vui lòng kiểm tra lại các trường đã nhập."
           : "Chưa kết nối được cửa hàng. Vui lòng thử lại.",
     );
+    throw Object.assign(error, { status: response.status });
+  }
   return data;
 }

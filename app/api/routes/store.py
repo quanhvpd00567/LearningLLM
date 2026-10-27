@@ -6,9 +6,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response
 from sqlalchemy import func, or_, select
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from app.core.admin_auth import same_origin
+from app.core.customer_auth import store_db, optional_customer, require_customer, customer_owner
 from app.core.config import get_settings
 from app.db.models import AdminSettings, CartItem, Category, KnowledgeDocument, Order, Product, ProductVariant, ShopperSession
 from app.schemas.store import CartUpdate, CheckoutInput, StoreChatInput
@@ -22,19 +22,10 @@ def tenant():
     return get_settings().admin_tenant_id
 
 
-async def store_db(request: Request):
-    if request.method not in {"GET","HEAD","OPTIONS"}:
-        same_origin(request)
-    try:
-        async with request.app.state.db_sessions.begin() as session:
-            yield session
-    except IntegrityError as exc:
-        raise HTTPException(409,"Dữ liệu đã thay đổi. Vui lòng tải lại và thử lại.") from exc
-    except SQLAlchemyError as exc:
-        raise HTTPException(503,"Cửa hàng tạm thời chưa kết nối được dữ liệu. Vui lòng thử lại.") from exc
-
-
-async def shopper(request:Request,response:Response,session=Depends(store_db,scope="function")):
+async def shopper(request:Request,response:Response,user=Depends(optional_customer,scope="function"),session=Depends(store_db,scope="function")):
+    if user is not None:
+        await session.scalar(select(ShopperSession).where(ShopperSession.token_hash==user.owner_hash).with_for_update())
+        return user.owner_hash
     token = request.cookies.get(COOKIE,"")
     token_hash = sha256(token.encode()).hexdigest()
     stmt = select(ShopperSession).where(ShopperSession.token_hash==token_hash,ShopperSession.expires_at>func.clock_timestamp())
@@ -148,26 +139,30 @@ async def update_cart(variant_id:UUID,body:CartUpdate,owner=Depends(shopper,scop
 
 
 @router.post("/checkout",status_code=201)
-async def place_order(body:CheckoutInput,owner=Depends(shopper,scope="function"),session=Depends(store_db,scope="function")):
+async def place_order(body:CheckoutInput,owner=Depends(customer_owner,scope="function"),session=Depends(store_db,scope="function")):
     return await checkout(session,owner,tenant(),body,get_settings().shipping_fee_vnd)
 
 
 @router.get("/orders")
-async def orders(owner=Depends(shopper,scope="function"),session=Depends(store_db,scope="function")):
+async def orders(owner=Depends(customer_owner,scope="function"),session=Depends(store_db,scope="function")):
     rows=(await session.scalars(select(Order).where(Order.session_hash==owner,Order.tenant_id==tenant()).order_by(Order.created_at.desc()).limit(30))).all()
     return [await order_view(session,row) for row in rows]
 
 
 @router.get("/orders/{code}")
-async def get_order(code:str,owner=Depends(shopper,scope="function"),session=Depends(store_db,scope="function")):
+async def get_order(code:str,owner=Depends(customer_owner,scope="function"),session=Depends(store_db,scope="function")):
     order=await session.scalar(select(Order).where(Order.code==code,Order.session_hash==owner,Order.tenant_id==tenant()))
     if order is None:
-        raise HTTPException(404,"Không tìm thấy đơn hàng trong phiên mua sắm này.")
+        raise HTTPException(404,"Không tìm thấy đơn hàng trong tài khoản của bạn.")
     return await order_view(session,order)
 
 
 @router.post("/chat")
-async def chat(body:StoreChatInput,request:Request):
+async def chat(body:StoreChatInput,request:Request,user=Depends(require_customer,scope="function")):
     same_origin(request)
+    from app.chatbot.customer_assistant import private_reply
+    personal = await private_reply(request.app.state.db_sessions, body, user, tenant())
+    if personal is not None:
+        return personal
     from app.chatbot.store_assistant import StoreAssistant
-    return await StoreAssistant(request.app.state.db_sessions,request.app.state.embedding,request.app.state.ollama).reply(body,tenant())
+    return await StoreAssistant(request.app.state.db_sessions,request.app.state.embedding,request.app.state.chat).reply(body,tenant())

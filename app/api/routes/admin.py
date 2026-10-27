@@ -1,5 +1,6 @@
 from hashlib import sha256
 import secrets
+import logging
 from typing import Literal
 from uuid import UUID, uuid4
 
@@ -53,8 +54,10 @@ async def login(body: LoginInput, request: Request, response: Response, session=
         raise HTTPException(503, "Chưa cấu hình ADMIN_PASSWORD cho trang quản trị.")
     if not (secrets.compare_digest(body.username.encode(), settings.admin_username.encode())
             & secrets.compare_digest(body.password.encode(), password.encode())):
+        logging.getLogger("app.auth").warning("admin_login_failed")
         raise HTTPException(401, "Tên đăng nhập hoặc mật khẩu chưa đúng.")
     await create_session(body.username, session, response)
+    logging.getLogger("app.auth").info("admin_login_success")
     return {"username": body.username}
 
 
@@ -68,6 +71,7 @@ async def logout(request: Request, response: Response, session=Depends(admin_db,
     token = request.cookies.get(COOKIE, "")
     await session.execute(delete(AdminSession).where(AdminSession.token_hash == sha256(token.encode()).hexdigest()))
     response.delete_cookie(COOKIE, path="/api/v1/admin")
+    logging.getLogger("app.auth").info("admin_logout")
     return {"ok": True}
 
 
@@ -84,7 +88,7 @@ async def get_settings_view(session=Depends(admin_db, scope="function")):
     settings = get_settings()
     return {**await settings_values(session), "runtime": {
         "embedding_model": settings.embedding_model, "embedding_dimensions": settings.embedding_dimensions,
-        "chat_model": settings.ollama_model, "pipeline_version": PIPELINE_VERSION,
+        "chat_model": settings.gemini_model, "pipeline_version": PIPELINE_VERSION,
         "batch_size": settings.embedding_batch_size, "poll_seconds": settings.embedding_job_poll_seconds,
         "lease_seconds": settings.embedding_job_lease_seconds, "currency": "VND",
     }}
